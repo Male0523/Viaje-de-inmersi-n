@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donde Camilo y Juliana — Alto Putumayo</title>
+    <link rel="stylesheet" href="styledestinos.css">
+</head>
+<body>
+    <div class="destino-page">
+        <div class="img-wrap" style="background-image: url('../IMAGEN/destino1-2.png');">
+        </div>
+        <div class="destino-content">
+            <h1>Donde Camilo y Juliana — Alto Putumayo</h1>
+
+            <p>El Alto Putumayo es un lugar donde la montaña y la niebla se funden en una sola respiración, donde la selva tiene voz y la tierra se siente viva bajo los pies. En medio de este paisaje sagrado, Camilo y Juliana custodian el Jardín Botánico Dantakunapa, un proyecto que combina ciencia, cultura y espiritualidad para celebrar la biodiversidad y el conocimiento ancestral.</p>
+
+            <p>Camilo y Juliana viven en armonía con su entorno, observando, cuidando y aprendiendo del bosque. Enseñan a quienes los visitan que cada planta guarda una historia, una medicina o una enseñanza. Aquí no se viene a consumir, sino a escuchar y comprender. Los recorridos por Dantakunapa son una experiencia sensorial y emocional: los colores, los aromas y los sonidos del bosque despiertan una conciencia distinta.</p>
+
+            <p>Más allá del aprendizaje botánico, lo que queda es una sensación de conexión profunda. Este es un viaje que invita a pensar en el lugar que ocupamos en el mundo y en la responsabilidad que tenemos hacia él. En el silencio del Putumayo, uno entiende que cuidar la naturaleza no es una obligación, sino una forma de gratitud.</p>
+
+            <a href="../index.html" class="btn-volver">Volver al inicio</a>
+        </div>
+    </div>
+</body>
+</html>
+
+    </div>
+    <script>
+    const track = document.querySelector('.carousel-track');
+    const cards = track.children;
+    const cardWidth = cards[0].offsetWidth;
+    const prevBtn = document.querySelector('.carousel-button.prev');
+    const nextBtn = document.querySelector('.carousel-button.next');
+    
+    let currentIndex = 0;
+    
+    function updateCarousel() {
+        const offset = -currentIndex * (cardWidth + 24); // 24px is the gap
+        track.style.transform = `translateX(${offset}px)`;
+    }
+    
+    prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        }
+    });
+    
+    nextBtn.addEventListener('click', () => {
+        if (currentIndex < cards.length - 3) { // Show 3 cards at once
+            currentIndex++;
+            updateCarousel();
+        }
+    });
+</script>
+</body>
+</html>

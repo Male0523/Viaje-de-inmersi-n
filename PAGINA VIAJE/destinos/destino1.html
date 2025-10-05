@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donde Federico y Tatiana — Minca, Magdalena</title>
+    <link rel="stylesheet" href="styledestinos.css">
+</head>
+<body>
+    <div class="destino-page">
+        <div class="img-wrap" style="background-image: url('../IMAGEN/destino1-1.png');">
+
+        </div>
+    
+        <div class="destino-content">
+            <h1>Donde Federico y Tatiana — Minca, Magdalena</h1>
+
+            <p>En Minca, la puerta verde de la Sierra Nevada de Santa Marta, Federico y Tatiana han encontrado un equilibrio entre el bienestar moderno y la sencillez natural. Su hogar, rodeado de selva, café y ríos, es un refugio donde la vida transcurre con serenidad. Aquí no hay ruido de ciudad ni horarios apretados: solo el ritmo pausado de la montaña, la luz cálida del amanecer y el sonido de las aves que anuncian un nuevo día.</p>
+
+            <p>Federico y Tatiana promueven una manera de habitar el mundo basada en el respeto por la naturaleza. Todo en su espacio ha sido pensado para convivir con el entorno: materiales reciclados, huertas, alimentos naturales y una hospitalidad que se siente más humana que turística. Cada conversación con ellos deja una enseñanza sobre sostenibilidad y armonía.</p>
+
+            <p>Quien visita Minca bajo su guía, descubre que el viaje puede ser también una forma de transformación personal. Entre caminatas, baños de río y charlas sinceras, uno comprende que vivir bien no es acumular, sino equilibrar. Este lugar invita a soltar, a respirar distinto y a recordar que la felicidad suele encontrarse en lo simple.</p>
+
+            <a href="../index.html" class="btn-volver">Volver al inicio</a>
+        </div>
+    </div>
+</body>
+</html>
+    </div>
+    <script>
+    const track = document.querySelector('.carousel-track');
+    const cards = track.children;
+    const cardWidth = cards[0].offsetWidth;
+    const prevBtn = document.querySelector('.carousel-button.prev');
+    const nextBtn = document.querySelector('.carousel-button.next');
+    
+    let currentIndex = 0;
+    
+    function updateCarousel() {
+        const offset = -currentIndex * (cardWidth + 24); // 24px is the gap
+        track.style.transform = `translateX(${offset}px)`;
+    }
+    
+    prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        }
+    });
+    
+    nextBtn.addEventListener('click', () => {
+        if (currentIndex < cards.length - 3) { // Show 3 cards at once
+            currentIndex++;
+            updateCarousel();
+        }
+    });
+</script>
+</body>
+</html>

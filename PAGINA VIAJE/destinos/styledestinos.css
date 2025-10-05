@@ -1,0 +1,425 @@
+/* ============================
+   Variables de color & ajustes
+   ============================ */
+:root{
+    --color-primary: #2c7873;
+    --color-secondary: #52de97;
+    --color-accent: #7cc6a6;
+    --color-background: #f5f7f9;
+    --color-text: #2c3e50;
+    --color-text-light: #666666;
+    --color-border: #e0e0e0;
+    --shadow-card: 0 6px 18px rgba(20,20,20,0.08);
+    --radius: 12px;
+    --space: 1rem;
+    --max-width: 1200px;
+    --color-h2: #e0e0e0;
+}
+
+/* ============================
+   Reset y base
+   ============================ */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html,body { height: 100%; }
+body{
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, "Segoe UI Historic", sans-serif;
+    background: var(--color-background);
+    color: var(--color-text);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+/* Contenedor central */
+.destino-page{
+    width: 100%;
+    max-width: var(--max-width);
+    background: white;
+    border-radius: calc(var(--radius) + 4px);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+    align-items: stretch;
+}
+
+.img-wrap {
+  flex: 0 0 288px !important; /* ancho fijo de la columna imagen */
+  display: block !important;
+  min-height: 0;              /* permite que el flex-item se reduzca si es necesario */
+  height: auto !important;    /* la altura la define la fila (stretch) */
+}
+
+/* Imagen lateral 
+.destino-image {
+  flex: 0 0 288px !important; 
+  width: 288px !important;     
+  height: 100% !important;     
+  display: block !important;
+  object-fit: cover !important; 
+}
+*/
+
+/* Contenido principal */
+.destino-content{
+    flex: 1 1 auto; 
+    padding: 2.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 0;
+}
+
+/* Encabezados y texto */
+.destino-content h1{
+    font-size: clamp(1.4rem, 2.6vw, 2rem);
+    color: var(--color-primary);
+    line-height: 1.1;
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.01em;
+}
+
+.destino-content p{
+    color: var(--color-text);
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+    color: var(--color-text-light);
+}
+
+.destino-content p:last-of-type{
+    margin-bottom: 1.2rem;
+    color: var(--color-text);
+}
+
+/* Botón volver (primario pequeño) */
+.btn-volver{
+    display: inline-block;
+    align-self: start;
+    padding: 0.6rem 1rem;
+    background: linear-gradient(180deg, var(--color-primary), var(--color-accent));
+    color: #fff;
+    text-decoration: none;
+    border-radius: 999px;
+    box-shadow: 0 6px 14px rgba(44,120,115,0.14);
+    font-weight: 600;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+}
+
+.btn-volver:hover,
+.btn-volver:focus{
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(44,120,115,0.18);
+    outline: none;
+}
+
+.btn-volver:focus{
+    box-shadow: 0 0 0 4px rgba(82,222,151,0.18);
+}
+
+/* ============================
+   Overlay lateral para texto sobre imagen (opcional)
+   Si quieres mostrar título sobre la imagen, activa esto
+   ============================ */
+.destino-page .img-overlay {
+    position: relative;
+}
+
+.img-overlay::after{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0.35) 60%);
+    pointer-events: none;
+}
+
+/* ============================
+   Micro tipografía y separadores
+   ============================ */
+.meta {
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    margin-bottom: .6rem;
+}
+
+/* Divider */
+.hr-soft{
+    height: 1px;
+    background: var(--color-border);
+    width: 100%;
+    margin: 1rem 0;
+    border-radius: 8px;
+}
+
+/* ============================
+   Carrusel (integrado con el CSS que ya tenías)
+   ============================ */
+
+/* Wrapper del carrusel (puedes ponerlo dentro de destino-content donde uses el carrusel) */
+.carousel-container{
+    width: 100%;
+    margin-top: .6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .75rem;
+}
+
+/* Track */
+.carousel-track{
+    display:flex;
+    gap:1rem;
+    transition: transform .45s cubic-bezier(.22,.9,.3,1);
+    padding-bottom: 0.5rem;
+    will-change: transform;
+}
+
+/* Tarjetas del carrusel */
+.carousel-card{
+    flex: 0 0 auto;
+    aspect-ratio: 2/3;
+    min-width: 260px;
+    max-width: 340px;
+    position: relative;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(10,10,10,0.08);
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.03));
+    transition: transform .28s ease, box-shadow .28s ease;
+    scroll-snap-align: start;
+}
+
+.carousel-card:hover{
+    transform: translateY(-6px);
+}
+
+.carousel-card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+
+/* Contenido sobre la tarjeta */
+.carousel-card-content{
+    position:absolute;
+    inset:0;
+    padding:1.25rem;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.35) 30%, transparent 60%);
+}
+
+.carousel-card h3{
+    color: #fff;
+    font-size: 1.15rem;
+    margin-bottom: .45rem;
+}
+
+.carousel-card p{
+    color: rgba(255,255,255,0.92);
+    font-size: .92rem;
+    margin-bottom: .8rem;
+}
+
+.btn-ver-mas{
+    position:absolute;
+    bottom: 1rem;
+    right: 1rem;
+    padding: .6rem .95rem;
+    background: #fff;
+    color: #222;
+    border-radius: 999px;
+    font-weight:600;
+    text-decoration:none;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+    transition: transform .18s ease, background .18s ease, color .18s ease;
+}
+
+.btn-ver-mas:hover{
+    background: var(--color-secondary);
+    color: #fff;
+    transform: translateY(-3px);
+}
+
+/* Controles */
+.carousel-controls{
+    display:flex;
+    gap:.75rem;
+    align-items:center;
+}
+
+.carousel-button{
+    width:3rem;
+    height:3rem;
+    border-radius:50%;
+    border:none;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    background: rgba(0,0,0,0.7);
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+    transition: transform .12s ease, background .12s ease;
+}
+
+.carousel-button:hover{
+    transform: scale(1.06);
+    background: var(--color-primary);
+}
+
+/* Forzar contraste de SVG interno si es necesario */
+.carousel-button svg{ stroke:#fff; width:20px; height:20px; }
+
+
+/* === Imagen lateral fija de 288x700 === */
+.destino-page {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+.img-wrap {
+  flex: 0 0 288px;         /* ancho fijo */
+  width: 288px;
+  height: 700px;           /* alto fijo */
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.destino-content {
+  flex: 1 1 auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+/* Responsive (apilar en móvil) */
+@media (max-width: 768px) {
+  .destino-page {
+    flex-direction: column;
+  }
+  .img-wrap {
+    width: 100%;
+    height: 320px;
+  }
+}
+
+
+
+/* ============================
+   Responsive
+   ============================ */
+@media (max-width: 1000px){
+    .destino-page{
+        grid-template-columns: 1fr;
+    }
+
+    .destino-image{
+        width:100%;
+        height: 320px;
+        aspect-ratio: auto;
+    }
+
+    .destino-content{
+        padding: 1.25rem;
+    }
+
+    .carousel-card{
+        min-width: 260px;
+        max-width: 420px;
+    }
+}
+
+@media (max-width: 720px){
+    body{ padding: 1rem; }
+    .destino-image{ height: 260px; }
+    .destino-content h1{ font-size: 1.25rem; }
+    .btn-volver{ padding: .5rem .85rem; font-size: .95rem; }
+    .carousel-card{ min-width: 80%; max-width: 92%; }
+}
+
+@media (max-width: 768px) {
+  .destino-page { flex-direction: column; }
+  .img-wrap { flex: 0 0 auto; width: 100%; }
+  .img-wrap .destino-image { height: 320px; max-height: 60vh; }
+}
+
+/* ============================
+   Preferencias de usuario
+   ============================ */
+@media (prefers-reduced-motion: reduce){
+    * { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}
+
+/* ============================
+   Pequeños detalles de accesibilidad
+   ============================ */
+a:focus-visible, button:focus-visible {
+    outline: 3px solid rgba(82,222,151,0.18);
+    outline-offset: 3px;
+}
+
+/* ============================
+   Utility classes (opcionales)
+   ============================ */
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 1rem; }
+.text-small { font-size: .92rem; color: var(--color-text-light); }
+
+/* --- Ajuste para permitir scroll y ver el botón completo --- */
+html, body {
+  height: auto;
+  min-height: 100vh;
+  -webkit-overflow-scrolling: touch; /* mejora el desplazamiento en móviles */
+}
+
+body {
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, "Segoe UI Historic", sans-serif;
+  background: var(--color-background);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+
+  /* 🔽 CAMBIOS IMPORTANTES 🔽 */
+  display: block;           /* antes era flex, lo quitamos para permitir scroll */
+  margin: 0;
+  padding: 2rem 1rem;
+  overflow-y: auto;         /* habilita el desplazamiento vertical */
+}
+
+/* --- Centrado horizontal sin bloquear el scroll --- */
+.destino-page {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: stretch !important;   /* clave: iguala la altura entre columnas */
+  gap: 0 !important;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+/* --- Recomendado si la imagen es muy alta en móviles --- */
+.destino-image {
+  max-height: 60vh;
+  object-fit: cover;
+}
+
+
+/* ============================
+   Fin de archivo
+   ============================ */

@@ -1,0 +1,290 @@
+/* Variables de color */
+:root {
+    --color-primary: #2c7873;
+    --color-secondary: #52de97;
+    --color-accent: #7cc6a6;
+    --color-background: #f5f7f9;
+    --color-text: #2c3e50;
+    --color-text-light: #666;
+    --color-border: #e0e0e0;
+    --shadow-card: 0 2px 4px rgba(0,0,0,0.1);
+    --radius: 10px;
+    --color-h2: #e0e0e0;
+}
+
+h2 {
+    color: var(--color-h2);
+}
+
+
+/* Estilos base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    color: var(--color-text);
+    background-color: var(--color-background);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+/* Encabezado principal */
+.main-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    padding: 4rem 1rem;
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+}
+
+.main-header h1 {
+    color: var(--color-primary);
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.main-header p {
+    color: var(--color-text-light);
+    font-size: 1.2rem;
+}
+
+/* Botones */
+.btn-primary {
+    display: inline-block;
+    padding: 1rem 3rem;
+    background-color: var(--color-primary);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--radius);
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-secondary);
+    transform: translateY(-2px);
+}
+
+/* Hero Section */
+.hero-section {
+    min-height: 100vh;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.hero-container {
+    width: 100%;
+    max-width: 1440px;
+    display: grid;
+    grid-template-columns: minmax(320px, 1fr) minmax(600px, 2fr);
+    gap: 4rem;
+    align-items: start;
+}
+
+.hero-left {
+    padding: 2rem;
+}
+
+.hero-left h1 {
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: white;
+}
+
+.hero-left p {
+    font-size: clamp(1.1rem, 2vw, 1.25rem);
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Carousel */
+.carousel-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* ← importante: alinear la pista al inicio (left) */
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding-right: 1rem;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 1rem;
+    transition: transform 0.5s ease;
+    padding-right: 0px;
+}
+
+
+/* Tarjetas del carrusel */
+.carousel-card {
+  flex: 0 0 auto; /* 👈 que cada tarjeta use su ancho natural */
+  aspect-ratio: 2/3;
+  min-width: 260px;
+  max-width: 340px;
+  position: relative;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  background: rgba(255,255,255,0.15);
+  transition: transform 0.3s ease;
+    scroll-snap-align: start; /* 👈 para que cada tarjeta se alinee al inicio */
+}
+
+.carousel-card:hover {
+    transform: translateY(-5px);
+}
+
+.carousel-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ✅ Versión definitiva de .carousel-card-content */
+.carousel-card-content {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.8) 0%,
+        rgba(0, 0, 0, 0.4) 30%,
+        transparent 60%
+    );
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.carousel-card h3 {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.carousel-card p {
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 1rem;
+}
+
+.btn-ver-mas {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    background: white;
+    color: #333;
+    border-radius: 2rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.btn-ver-mas:hover {
+    transform: translateY(-2px);
+    background: var(--color-secondary);
+    color: #fff;
+}
+
+/* Controles */
+.carousel-controls {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.carousel-button {
+    width: 3rem;
+    height: 3rem;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.9);
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.carousel-controls {
+    position: relative;
+    z-index: 20; /* Para que quede por encima del fondo y overlay */
+}
+
+.carousel-button svg {
+    stroke: #333; /* Forzar el color de la flecha */
+    width: 24px;
+    height: 24px;
+}
+
+.carousel-button {
+  background: black !important;
+  color: white !important;
+  z-index: 50 !important;
+}
+
+.carousel-button:hover {
+    transform: scale(1.1);
+    background: var(--color-primary);
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .hero-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .carousel-card {
+        flex: 0 0 33.333%; /* exactamente 3 visibles en desktop */
+        margin-right: 16px; /* en vez del gap del track */
+    }
+}
+
+@media (max-width: 768px) {
+  .carousel-card {
+    flex: 0 0 100%;
+    max-width: 100%; /* añade esto */
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .carousel-card {
+    flex: 0 0 100%;
+    min-width: 220px;
+    max-width: 100%;  /* cambia de 100vw a 100% */
+  }
+
+  .carousel-controls {
+    position: static;
+    margin-top: 1rem;
+  }
+}

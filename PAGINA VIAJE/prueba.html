@@ -1,0 +1,107 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turismo de Inmersión - Descubre tu Destino</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .carousel-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.carousel-card {
+  flex: 0 0 50%;   /* 2 visibles en desktop */
+  min-width: 300px;
+  aspect-ratio: 2/3;
+  background: lightblue;
+  border-radius: 10px;
+  margin-right: 16px; /* espaciado entre tarjetas */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.carousel-controls {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.carousel-button {
+  width: 3rem;
+  height: 3rem;
+  border: none;
+  border-radius: 50%;
+  background: black;
+  color: white;
+  cursor: pointer;
+}
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="carousel-container">
+  <div class="carousel-track" id="carouselTrack">
+    <div class="carousel-card">Tarjeta 1</div>
+    <div class="carousel-card">Tarjeta 2</div>
+    <div class="carousel-card">Tarjeta 3</div>
+    <div class="carousel-card">Tarjeta 4</div>
+    <div class="carousel-card">Tarjeta 5</div>
+  </div>
+
+  <div class="carousel-controls">
+    <button id="carouselPrev" class="carousel-button prev">◀</button>
+    <button id="carouselNext" class="carousel-button next">▶</button>
+  </div>
+</div>
+<script>
+
+    const track = document.getElementById("carouselTrack");
+const cards = track.children;
+const prevBtn = document.getElementById("carouselPrev");
+const nextBtn = document.getElementById("carouselNext");
+
+let currentIndex = 0;
+
+function getVisibleCards() {
+  if (window.innerWidth < 768) return 1; // móvil
+  return 2; // desktop
+}
+
+function updateCarousel() {
+  const cardWidth = cards[0].offsetWidth + 16; // ancho + margin
+  const maxIndex = cards.length - getVisibleCards();
+  track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+
+  // deshabilitar botones cuando toque
+  prevBtn.disabled = currentIndex === 0;
+  nextBtn.disabled = currentIndex === maxIndex;
+}
+
+prevBtn.addEventListener("click", () => {
+  if (currentIndex > 0) {
+    currentIndex--;
+    updateCarousel();
+  }
+});
+
+nextBtn.addEventListener("click", () => {
+  const maxIndex = cards.length - getVisibleCards();
+  if (currentIndex < maxIndex) {
+    currentIndex++;
+    updateCarousel();
+  }
+});
+
+window.addEventListener("resize", updateCarousel);
+window.addEventListener("DOMContentLoaded", updateCarousel);
+</script>

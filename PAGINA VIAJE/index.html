@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turismo de Inmersión - Descubre tu Destino</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+   
+<style>
+  /* Carousel */
+.carousel-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* ← importante: alinear la pista al inicio (left) */
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding-right: 1rem; /* espacio al final para que la última tarjeta no quede pegada */
+}
+
+.carousel-track {
+  padding-right: calc(100% - 260px); /* 👈 260px = min-width de la tarjeta */
+  display: flex;
+  transition: transform 0.5s ease;
+  gap: 1rem; /* 👈 espacio entre tarjetas */
+  scroll-snap-type: x mandatory; /* 👈 para que el scroll "encaje" en cada tarjeta */
+}
+
+.carousel-track::after {
+  content: "";
+  flex: 0 0 auto;
+  width: calc(100% - 1rem); /* 👈 espacio igual al viewport menos el gap */
+}
+
+/* Tarjetas */
+.carousel-card {
+  flex: 0 0 calc(50% - 8px); /* 50% menos la mitad del gap */
+  aspect-ratio: 2/3;
+  min-width: 260px;
+  max-width: 340px;
+  position: relative;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  background: rgba(255,255,255,0.15);
+  transition: transform 0.3s ease;
+   scroll-snap-align: start; /* 👈 para que cada tarjeta se alinee al inicio */
+}
+
+.carousel-card:hover {
+  transform: translateY(-5px);
+}
+
+.carousel-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carousel-card-content h2 {
+  padding-bottom: 2.5rem; 
+  font-weight: 500;
+}
+
+/* Contenido */
+.carousel-card-content {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.4) 30%,
+    transparent 60%
+  );
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/* Controles */
+.carousel-controls {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  z-index: 20;
+}
+
+.carousel-button {
+  width: 3rem;
+  height: 3rem;
+  border: none;
+  border-radius: 50%;
+  background: black;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.carousel-button svg {
+  stroke: #fff;
+  width: 24px;
+  height: 24px;
+}
+
+.carousel-button:hover {
+  transform: scale(1.1);
+  background: var(--color-primary);
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .carousel-card {
+    flex: 0 0 calc(50% - 0.5rem); /* ejemplo: 2 tarjetas en ese viewport */
+    max-width: calc(50% - 0.5rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-card {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .carousel-card {
+    flex: 0 0 100%;
+    min-width: 220px;
+    max-width: 100%;
+  }
+
+  .carousel-controls {
+    position: static;
+    margin-top: 1rem;
+  }
+}
+</style>
+
+</head>
+<body class="relative min-h-screen">
+    <!-- Fondo fijo con overlay -->
+    <div class="fixed inset-0 z-0">
+        <img src="prueba fondo.png" alt="Fondo" class="object-cover w-full h-full">
+        <div class="absolute inset-0 bg-overlay"></div>
+    </div>
+
+    <!-- Contenido principal -->
+    <main class="relative z-10">
+        <section class="hero-section">
+            <div class="hero-container">
+                <!-- Columna izquierda: texto principal -->
+                <div class="hero-left">
+                    <h1>Tu próxima aventura comienza aquí</h1>
+                    <p>Explora destinos únicos y vive experiencias transformadoras</p>
+                    <a href="test.html" class="btn-primary">Descubre tu destino ideal</a>
+                </div>
+                <!-- Columna derecha: carrusel -->
+                <div class="hero-right">
+                    <div class="carousel-container">
+                        <div class="carousel-track" id="carouselTrack">
+                            
+                          
+                            <!-- Card 1 -->
+                            <div class="carousel-card">
+                                <img src="IMAGEN/destino1.png" alt="Minca">
+                                <div class="carousel-card-content">
+                                    <h3> Magdalena (Minca)</h3>
+                                    <h2>Donde Federico y Tatiana</h2>
+                                    <a href="destinos/destino1.html" class="btn-ver-mas">Ver más</a>
+                                </div>
+                            </div>
+                            
+                            <!-- Card 2 -->
+                            <div class="carousel-card">
+                                <img src="IMAGEN/destino2.png" alt="Amazonas">
+                                <div class="carousel-card-content">
+                                    <h3>Amazonas (Putumayo)</h3>
+                                    <h2>Donde Camilo y Juliana</h2>
+                                    <a href="destinos/destino2.html" class="btn-ver-mas">Ver más</a>
+                                </div>
+                            </div>
+                            
+                            <!-- Card 3 -->
+                            <div class="carousel-card">
+                                <img src="IMAGEN/destino3.png" alt="Bolívar">
+                                <div class="carousel-card-content">
+                                    <h3>Bolívar (Archipiélago del Rosario)</h3>
+                                    <h2>Donde Margarita y Ever</h2>
+                                    <a href="destinos/destino3.html" class="btn-ver-mas">Ver más</a>
+                                </div>
+                            </div>
+                            
+                            <!-- Card 4 -->
+                            <div class="carousel-card">
+                                <img src="IMAGEN/destino4.png" alt="Eje Cafetero">
+                                <div class="carousel-card-content">
+                                  <h3>Quindío (Eje Cafetero)</h3>
+                                    <h2>Donde Hernando y su familia</h2>
+                                    <a href="destinos/destino4.html" class="btn-ver-mas">Ver más</a>
+                                </div>
+                            </div>
+                            
+                            <!-- Card 5 -->
+                            <div class="carousel-card">
+                                <img src="IMAGEN/destino5.png" alt="Santander">
+                                <div class="carousel-card-content">
+                                    <h3>Santander(Barichara)</h3>
+                                    <h2>Donde Mauricio y Jorge</h2>
+                                    <a href="destinos/destino5.html" class="btn-ver-mas">Ver más</a>
+                                </div>
+                            </div>
+                            
+                            <!-- Card 6 -->
+                            <div class="carousel-card">
+                                <img src="IMAGEN/destino6.png" alt="Huila">
+                                <div class="carousel-card-content">
+                                    <h3>Huila (San Agustín) </h3>
+                                    <h2>Donde Steffen y Lina</h2>
+                                    <a href="destinos/destino6.html" class="btn-ver-mas">Ver más</a>
+                                </div>
+                            </div>
+                            
+                            <!-- Card 7 -->
+                            <div class="carousel-card">
+                                <img src="IMAGEN/destino7.png" alt="Magdalena">
+                                <div class="carousel-card-content">
+                                    <h3>Magdalena (Sierra Nevada)</h3>
+                                    <h2>Donde Ati y Dwineck</h2>
+                                    <a href="destinos/destino7.html" class="btn-ver-mas">Ver más</a>
+                                </div>
+                            </div>
+                            
+                            <!-- Card 8 -->
+                            <div class="carousel-card">
+                                <img src="IMAGEN/destino8.png" alt="Antioquia">
+                                <div class="carousel-card-content">
+                                    <h3>Antioquia (Cuenca del río Arenal)</h3>
+                                    <h2>Donde Darien y Liumara</h2>
+                                    <a href="destinos/destino8.html" class="btn-ver-mas">Ver más</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Botones de control -->
+                        <div class="carousel-controls">
+                            <button class="carousel-button prev" id="carouselPrev" aria-label="Mover a la izquierda">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M15 18l-6-6 6-6"></path>
+                                </svg>
+                            </button>
+                            <button class="carousel-button next" id="carouselNext" aria-label="Mover a la derecha">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 18l6-6-6-6"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+<script>
+  // ==========================
+  // Datos de destinos y anfitriones
+  // ==========================
+  const destinos = {
+    amazonas: {
+      nombre: "Amazonas",
+      anfitrion: "Don Miguel, guardián de la selva",
+      descripcion: "¡La majestuosa selva amazónica te espera! Con Don Miguel descubrirás los secretos ancestrales de la naturaleza más biodiversa del planeta."
+    },
+    guajira: {
+      nombre: "Guajira",
+      anfitrion: "Comunidad Wayuu con Ana María",
+      descripcion: "Las hermosas playas desérticas y la rica cultura Wayuu serán tu hogar. Ana María te guiará en un viaje único por las tradiciones de su pueblo."
+    },
+    sierraNevada: {
+      nombre: "Sierra Nevada",
+      anfitrion: "Hermanos Arhuacos",
+      descripcion: "Las místicas montañas de la Sierra Nevada te conectarán con la sabiduría ancestral de los Arhuacos."
+    },
+    ejeCafetero: {
+      nombre: "Eje Cafetero",
+      anfitrion: "Familia cafetera Gómez",
+      descripcion: "Sumérgete en el aroma del mejor café del mundo junto a la cálida Familia Gómez."
+    },
+    caqueta: {
+      nombre: "Caquetá",
+      anfitrion: "Doña Luz, protectora del río",
+      descripcion: "Descubre la magia de los ríos y la selva del Caquetá con la sabiduría de Doña Luz."
+    },
+    putumayo: {
+      nombre: "Putumayo",
+      anfitrion: "Shamán Yair",
+      descripcion: "Explora la medicina ancestral y la conexión espiritual con la naturaleza junto al Shamán Yair."
+    },
+    boyaca: {
+      nombre: "Boyacá",
+      anfitrion: "Don Jorge, campesino boyacense",
+      descripcion: "Vive la autenticidad de la cultura campesina boyacense con la hospitalidad de Don Jorge."
+    },
+    narino: {
+      nombre: "Nariño",
+      anfitrion: "María José, artesana de Pasto",
+      descripcion: "Descubre el arte y la cultura del sur con la maestría artesanal de María José."
+    }
+  };
+
+  // ==========================
+  // Preguntas del test
+  // ==========================
+  const preguntas = [
+    {
+      pregunta: "¿Qué tipo de paisaje te atrae más?",
+      opciones: [
+        { texto: "Selva exuberante", destino: "amazonas" },
+        { texto: "Desierto y mar", destino: "guajira" },
+        { texto: "Montañas nevadas", destino: "sierraNevada" },
+        { texto: "Montañas verdes", destino: "ejeCafetero" }
+      ]
+    },
+    // Aquí irían las demás preguntas
+  ];
+
+  // Objeto para almacenar los puntos
+  let puntos = {};
+  for (let destino in destinos) {
+    puntos[destino] = 0;
+  }
+
+  // ==========================
+  // Generar preguntas
+  // ==========================
+  function generarPreguntas() {
+    const form = document.getElementById('testForm');
+
+    preguntas.forEach((pregunta, index) => {
+      const section = document.createElement('section');
+      section.className = 'pregunta';
+      section.innerHTML = `
+        <h3>Pregunta ${index + 1}</h3>
+        <p>${pregunta.pregunta}</p>
+        <div class="opciones">
+          ${pregunta.opciones.map((opcion, oIndex) => `
+            <div class="opcion">
+              <input type="radio" 
+                     id="p${index}_${oIndex}" 
+                     name="pregunta${index}" 
+                     value="${opcion.destino}"
+                     required>
+              <label for="p${index}_${oIndex}">${opcion.texto}</label>
+            </div>
+          `).join('')}
+        </div>
+      `;
+      form.insertBefore(section, document.getElementById('resultCard'));
+    });
+
+    const submitButton = document.createElement('button');
+    submitButton.type = 'submit';
+    submitButton.className = 'btn-submit';
+    submitButton.textContent = 'Ver Resultados';
+    form.insertBefore(submitButton, document.getElementById('resultCard'));
+  }
+
+  // ==========================
+  // Calcular resultados
+  // ==========================
+  function calcularResultados(event) {
+    event.preventDefault();
+
+    for (let destino in puntos) {
+      puntos[destino] = 0;
+    }
+
+    preguntas.forEach((_, index) => {
+      const seleccionada = document.querySelector(`input[name="pregunta${index}"]:checked`);
+      if (seleccionada) {
+        puntos[seleccionada.value]++;
+      }
+    });
+
+    const maxPuntos = Math.max(...Object.values(puntos));
+    const destinosGanadores = Object.entries(puntos)
+      .filter(([_, puntos]) => puntos === maxPuntos)
+      .map(([destino, _]) => destino);
+
+    mostrarResultados(destinosGanadores);
+  }
+
+  // ==========================
+  // Mostrar resultados
+  // ==========================
+  function mostrarResultados(destinosGanadores) {
+    const resultContent = document.getElementById('resultContent');
+    const resultCard = document.getElementById('resultCard');
+    const testForm = document.getElementById('testForm');
+
+    let html = '';
+    destinosGanadores.forEach(destino => {
+      const destinoInfo = destinos[destino];
+      html += `
+        <div class="destino-ganador">
+          <h3>${destinoInfo.nombre}</h3>
+          <p class="anfitrion">Tu anfitrión: ${destinoInfo.anfitrion}</p>
+          <p class="descripcion">${destinoInfo.descripcion}</p>
+        </div>
+      `;
+    });
+
+    resultContent.innerHTML = html;
+    testForm.classList.add('hidden');
+    resultCard.classList.remove('hidden');
+  }
+
+  // ==========================
+  // Reiniciar test
+  // ==========================
+  function reiniciarTest() {
+    const testForm = document.getElementById('testForm');
+    const resultCard = document.getElementById('resultCard');
+    
+    testForm.reset();
+    testForm.classList.remove('hidden');
+    resultCard.classList.add('hidden');
+  }
+
+  // Inicializar carrusel
+(function(){
+  const track = document.getElementById('carouselTrack');
+  if (!track) return;
+  const container = track.parentElement; // .carousel-container
+  const cards = Array.from(track.querySelectorAll('.carousel-card'));
+  const prevButton = document.getElementById('carouselPrev');
+  const nextButton = document.getElementById('carouselNext');
+
+  let currentIndex = 0;
+  let maxTranslate = 0;
+
+  function getGap() {
+    const cs = getComputedStyle(track);
+    return parseFloat(cs.gap || cs.columnGap) || 16;
+  }
+
+  function imagesLoadedPromise() {
+    const imgs = Array.from(track.querySelectorAll('img'));
+    return Promise.all(imgs.map(img => {
+      return img.complete ? Promise.resolve() : new Promise(res => {
+        img.addEventListener('load', res);
+        img.addEventListener('error', res);
+      });
+    }));
+  }
+
+  function recalcSizes() {
+    // quitamos transición temporalmente para medir bien
+    track.style.transition = 'none';
+    track.style.transform = 'translateX(0px)';
+    // forzamos reflow
+    void track.offsetWidth;
+
+    const containerWidth = container.clientWidth;
+    const trackScrollWidth = track.scrollWidth; // incluye gaps
+    maxTranslate = Math.max(0, trackScrollWidth - containerWidth);
+
+    // volver a aplicar la posición actual (clampada)
+    const desired = Math.min(cards[currentIndex]?.offsetLeft || 0, maxTranslate);
+    requestAnimationFrame(() => {
+      track.style.transition = 'transform 0.5s ease';
+      track.style.transform = `translateX(-${Math.round(desired)}px)`;
+    });
+
+    console.log('recalcSizes', {
+      containerWidth: Math.round(containerWidth),
+      trackScrollWidth: Math.round(trackScrollWidth),
+      maxTranslate: Math.round(maxTranslate),
+      cardCount: cards.length
+    });
+  }
+
+  function moveToIndex(index) {
+    index = Math.max(0, Math.min(cards.length - 1, index));
+    const targetOffset = cards[index].offsetLeft; // posición de la tarjeta dentro del track
+    const desiredTranslate = Math.min(Math.round(targetOffset), Math.round(maxTranslate));
+    track.style.transform = `translateX(-${desiredTranslate}px)`;
+    currentIndex = index;
+    console.log('moveToIndex', { index, targetOffset: Math.round(targetOffset), desiredTranslate: Math.round(desiredTranslate), maxTranslate: Math.round(maxTranslate) });
+  }
+
+  nextButton.addEventListener('click', () => {
+    moveToIndex(Math.min(cards.length - 1, currentIndex + 1));
+  });
+
+  prevButton.addEventListener('click', () => {
+    moveToIndex(Math.max(0, currentIndex - 1));
+  });
+
+  // Debounced resize
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      recalcSizes();
+    }, 120);
+  });
+
+  // Init after images loaded
+  window.addEventListener('load', async () => {
+    await imagesLoadedPromise();
+    // inicio en 0 sin transición
+    track.style.transition = 'none';
+    track.style.transform = 'translateX(0px)';
+    currentIndex = 0;
+    // recalc y aplicar
+    recalcSizes();
+  });
+
+  // también recalcula si cambias contenido dinámicamente
+  // (exponer función si la necesitas)
+  window._myCarouselRecalc = recalcSizes;
+})();
+</script>
+
+</body>
+</html>

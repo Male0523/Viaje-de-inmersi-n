@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donde Ati y Dwineck — Sierra Nevada de Santa Marta, Magdalena</title>
+    <link rel="stylesheet" href="styledestinos.css">
+</head>
+<body>
+    <div class="destino-page">
+        <div class="img-wrap" style="background-image: url('../IMAGEN/destino1-7.png');">
+        </div>
+        <div class="destino-content">
+            <h1>Donde Ati y Dwineck — Sierra Nevada de Santa Marta, Magdalena</h1>
+
+            <p>La Sierra Nevada de Santa Marta es mucho más que una montaña: es el corazón espiritual de un territorio donde la vida humana y la naturaleza se entrelazan. Allí, Ati y Dwineck reciben a los visitantes con la sabiduría de su pueblo y el respeto profundo por la Madre Tierra que guía cada uno de sus actos.</p>
+
+            <p>Su hogar es una escuela viva. A través de sus palabras y su ejemplo, enseñan la importancia del equilibrio, de la reciprocidad y del cuidado del agua, los ríos y las montañas. Compartir con ellos es descubrir una cosmovisión en la que todo tiene un propósito y donde el bienestar individual no puede separarse del bienestar colectivo.</p>
+
+            <p>El visitante no solo observa, participa de una reflexión sobre la vida y el mundo. En este espacio, el tiempo se vuelve lento, las prioridades cambian y las preocupaciones se disuelven. La Sierra enseña sin hablar, y Ati y Dwineck son sus traductores más sabios.</p>
+
+            <a href="../index.html" class="btn-volver">Volver al inicio</a>
+        </div>
+    </div>
+</body>
+</html>
+    </div>
+    <script>
+    const track = document.querySelector('.carousel-track');
+    const cards = track.children;
+    const cardWidth = cards[0].offsetWidth;
+    const prevBtn = document.querySelector('.carousel-button.prev');
+    const nextBtn = document.querySelector('.carousel-button.next');
+    
+    let currentIndex = 0;
+    
+    function updateCarousel() {
+        const offset = -currentIndex * (cardWidth + 24); // 24px is the gap
+        track.style.transform = `translateX(${offset}px)`;
+    }
+    
+    prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        }
+    });
+    
+    nextBtn.addEventListener('click', () => {
+        if (currentIndex < cards.length - 3) { // Show 3 cards at once
+            currentIndex++;
+            updateCarousel();
+        }
+    });
+</script>
+</body>
+</html>

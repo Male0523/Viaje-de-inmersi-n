@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donde Margarita y Ever — Isla Grande, Bolívar</title>
+    <link rel="stylesheet" href="styledestinos.css">
+</head>
+<body>
+    <div class="destino-page">
+        <div class="img-wrap" style="background-image: url('../IMAGEN/destino1-3.png');">
+        </div>
+        <div class="destino-content">
+            <h1>Donde Margarita y Ever — Isla Grande, Bolívar</h1>
+
+            <p>En el corazón del archipiélago del Rosario, rodeada de aguas turquesas y manglares, está la casa de Margarita y Ever. Su vida transcurre al ritmo del mar, guiada por la brisa, las mareas y las tradiciones de una comunidad que lleva generaciones aprendiendo del océano.</p>
+
+            <p>Aquí, cada día tiene un pulso distinto. Se aprende a escuchar el silencio del amanecer, a valorar el trabajo de quienes viven del mar y a mirar el entorno con respeto. Margarita y Ever no ofrecen lujos ni artificios: ofrecen verdad. Comparten historias sobre los corales, enseñan cómo cuidar el entorno y transmiten la sabiduría del Caribe desde la experiencia y el cariño.</p>
+
+            <p>Visitar Isla Grande es reencontrarse con la calma. Es entender que el lujo está en la autenticidad y que la belleza del Caribe va más allá de sus paisajes: está en su gente, en su cultura y en su capacidad de resistir y cuidar. Al marcharse, uno se lleva el sonido del mar, pero también una nueva forma de mirar la vida.</p>
+
+            <a href="../index.html" class="btn-volver">Volver al inicio</a>
+        </div>
+    </div>
+</body>
+</html>
+    </div>
+    <script>
+    const track = document.querySelector('.carousel-track');
+    const cards = track.children;
+    const cardWidth = cards[0].offsetWidth;
+    const prevBtn = document.querySelector('.carousel-button.prev');
+    const nextBtn = document.querySelector('.carousel-button.next');
+    
+    let currentIndex = 0;
+    
+    function updateCarousel() {
+        const offset = -currentIndex * (cardWidth + 24); // 24px is the gap
+        track.style.transform = `translateX(${offset}px)`;
+    }
+    
+    prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        }
+    });
+    
+    nextBtn.addEventListener('click', () => {
+        if (currentIndex < cards.length - 3) { // Show 3 cards at once
+            currentIndex++;
+            updateCarousel();
+        }
+    });
+</script>
+</body>
+</html>

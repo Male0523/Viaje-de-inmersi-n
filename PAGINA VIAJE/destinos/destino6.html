@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donde Steffen y Lina — San Agustín, Huila</title>
+    <link rel="stylesheet" href="styledestinos.css">
+</head>
+<body>
+    <div class="destino-page">
+        <div class="img-wrap" style="background-image: url('../IMAGEN/destino1-6.png');">
+        </div>
+        <div class="destino-content">
+            <h1>Donde Steffen y Lina — San Agustín, Huila</h1>
+
+            <p>En San Agustín, donde el misterio de las esculturas precolombinas se mezcla con la energía de la montaña, Steffen y Lina han creado un refugio que invita a mirar el mundo con calma. Su hogar, rodeado por un paisaje que respira historia, es un espacio para reconectarse con la naturaleza y con uno mismo. Aquí, cada amanecer parece tener algo sagrado: el sonido del agua, la bruma sobre los árboles y la quietud que envuelve todo.</p>
+
+            <p>Steffen y Lina entienden el turismo como un acto de encuentro y respeto. Su casa está pensada para inspirar silencio y contemplación, para dejar que el entorno sea el protagonista. El visitante no encuentra un itinerario, sino un ritmo distinto: el de escuchar al viento, observar la lluvia caer o descubrir en el arte y la sencillez una forma de equilibrio.</p>
+
+            <p>Con ellos, la vida se vuelve más pausada. No se trata de desconectarse del mundo, sino de conectarse mejor: con el entorno, con el propio cuerpo, con los pensamientos que a veces olvidamos atender. En San Agustín, el viaje se convierte en introspección, y la calma de su espacio se lleva dentro mucho tiempo después de partir.</p>
+
+            <a href="../index.html" class="btn-volver">Volver al inicio</a>
+        </div>
+    </div>
+</body>
+</html>
+    </div>
+    <script>
+    const track = document.querySelector('.carousel-track');
+    const cards = track.children;
+    const cardWidth = cards[0].offsetWidth;
+    const prevBtn = document.querySelector('.carousel-button.prev');
+    const nextBtn = document.querySelector('.carousel-button.next');
+    
+    let currentIndex = 0;
+    
+    function updateCarousel() {
+        const offset = -currentIndex * (cardWidth + 24); // 24px is the gap
+        track.style.transform = `translateX(${offset}px)`;
+    }
+    
+    prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        }
+    });
+    
+    nextBtn.addEventListener('click', () => {
+        if (currentIndex < cards.length - 3) { // Show 3 cards at once
+            currentIndex++;
+            updateCarousel();
+        }
+    });
+</script>
+</body>
+</html>

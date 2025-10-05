@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donde Mauricio y Jorge — Barichara, Santander</title>
+    <link rel="stylesheet" href="styledestinos.css">
+</head>
+<body>
+    <div class="destino-page">
+        <div class="img-wrap" style="background-image: url('../IMAGEN/destino1-5.png');">
+        </div>
+        <div class="destino-content">
+            <h1>Donde Mauricio y Jorge — Barichara, Santander</h1>
+
+            <p>Barichara, con sus caminos dorados y su aire detenido en el tiempo, guarda un espíritu que se siente en cada piedra y en cada mirada amable. En ese escenario de paz y sencillez, Mauricio y Jorge han tejido junto con las familias campesinas de la Corporación Santa Helena una experiencia que trasciende el turismo: una convivencia sincera con el alma rural de Santander.</p>
+
+            <p>Aquí, los visitantes no llegan a observar, sino a compartir. Se aprende sobre la siembra, sobre las costumbres que sostienen la vida campesina y sobre los lazos invisibles que unen a quienes viven del campo. Es una experiencia donde el conocimiento se transmite en los gestos: en la forma de amasar, de cuidar la tierra, de escuchar el sonido del río o de preparar una comida colectiva.</p>
+
+            <p>El verdadero valor de este lugar está en su gente. En las manos curtidas que siembran esperanza, en las voces que aún creen en el poder del trabajo conjunto, en el sentido profundo de comunidad que aquí se respira. “Donde Mauricio y Jorge” no solo ofrece descanso: ofrece perspectiva. Al marcharse, uno entiende que el campo no es pasado, sino futuro, y que el viaje más transformador es aquel que nos devuelve a nuestras raíces.</p>
+
+            <a href="../index.html" class="btn-volver">Volver al inicio</a>
+        </div>
+    </div>
+</body>
+</html>
+    </div>
+    <script>
+    const track = document.querySelector('.carousel-track');
+    const cards = track.children;
+    const cardWidth = cards[0].offsetWidth;
+    const prevBtn = document.querySelector('.carousel-button.prev');
+    const nextBtn = document.querySelector('.carousel-button.next');
+    
+    let currentIndex = 0;
+    
+    function updateCarousel() {
+        const offset = -currentIndex * (cardWidth + 24); // 24px is the gap
+        track.style.transform = `translateX(${offset}px)`;
+    }
+    
+    prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        }
+    });
+    
+    nextBtn.addEventListener('click', () => {
+        if (currentIndex < cards.length - 3) { // Show 3 cards at once
+            currentIndex++;
+            updateCarousel();
+        }
+    });
+</script>
+</body>
+</html>

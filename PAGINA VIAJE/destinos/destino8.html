@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donde Sergio y Betty — Cuenca del Río Arenal, Antioquia</title>
+    <link rel="stylesheet" href="styledestinos.css">
+</head>
+<body>
+    <div class="destino-page">
+        <div class="img-wrap" style="background-image: url('../IMAGEN/destino1-8.png');">
+        </div>
+        <div class="destino-content">
+            <h1>Donde Sergio y Betty — Cuenca del Río Arenal, Antioquia</h1>
+
+            <p>En una región donde la tierra vuelve a florecer tras años de desgaste, Sergio y Betty han creado un lugar de esperanza. Su proyecto en la Cuenca del Río Arenal es un ejemplo vivo de reforestación, convivencia y transformación. Aquí, la naturaleza no es un recurso, es un hogar compartido.</p>
+
+            <p>Cada árbol plantado cuenta una historia, cada sendero recorrido revela el poder del trabajo colectivo. Los visitantes son bienvenidos a participar: a sembrar, a aprender, a observar cómo el esfuerzo diario se convierte en renacer. Sergio y Betty demuestran que la sostenibilidad no es una meta distante, sino un camino que se construye con acciones pequeñas y constantes.</p>
+
+            <p>Visitar este lugar es reencontrarse con la esperanza. En su comunidad, el futuro se siembra con las manos y con el corazón. Aquí uno aprende que el viaje también puede ser una forma de sanar el planeta, y que cuidar la tierra es, en el fondo, cuidarnos a nosotros mismos.</p>
+
+            <a href="../index.html" class="btn-volver">Volver al inicio</a>
+        </div>
+    </div>
+</body>
+</html>
+    </div>
+    <script>
+    const track = document.querySelector('.carousel-track');
+    const cards = track.children;
+    const cardWidth = cards[0].offsetWidth;
+    const prevBtn = document.querySelector('.carousel-button.prev');
+    const nextBtn = document.querySelector('.carousel-button.next');
+    
+    let currentIndex = 0;
+    
+    function updateCarousel() {
+        const offset = -currentIndex * (cardWidth + 24); // 24px is the gap
+        track.style.transform = `translateX(${offset}px)`;
+    }
+    
+    prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        }
+    });
+    
+    nextBtn.addEventListener('click', () => {
+        if (currentIndex < cards.length - 3) { // Show 3 cards at once
+            currentIndex++;
+            updateCarousel();
+        }
+    });
+</script>
+</body>
+</html>

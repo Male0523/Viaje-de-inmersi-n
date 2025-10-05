@@ -1,0 +1,334 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>Test de Destino Ideal - Turismo de Inmersión</title>
+    <link rel="stylesheet" href="test.css" />
+</head>
+<body>
+<main class="test-container">
+  <header class="test-header">
+    <h1>Descubre tu destino ideal</h1>
+    <p>Responde estas 15 preguntas pensadas para las experiencias de inmersión que ofrecemos. Al final conocerás el destino y el anfitrión que mejor conecta con tu curiosidad y ritmo de viaje.</p>
+    <a href="index.html" class="btn-volver">Volver al inicio</a>
+  </header>
+
+  <form id="testForm" class="test-form" novalidate>
+    <!-- preguntas generadas -->
+  </form>
+
+  <div id="resultCard" class="result-card hidden" aria-live="polite">
+    <h2>Tu destino ideal</h2>
+    <div id="resultContent" aria-atomic="true"></div>
+    <div class="botones-resultado">
+      <button type="button" id="retakeTest" class="btn-retake">Volver a hacer el test</button>
+      <a href="index.html" class="btn-home">Volver al inicio</a>
+    </div>
+  </div>
+</main>
+
+<script>
+/* Destinos (texto en español) */
+const destinos = {
+  hernando: {
+    nombre: "Eje Cafetero — Filandia (Quindío)",
+    anfitrion: "Hernando y su familia",
+    descripcion: "Una finca integral en la zona cafetera donde la familia comparte bioconstrucción, talleres, cuidado de animales y la experiencia completa del café. Alojamiento en cabañas de guadua y comida local."
+  },
+  mauricio: {
+    nombre: "Barichara (Santander)",
+    anfitrion: "Mauricio y familias campesinas (Santa Helena)",
+    descripcion: "Convivencia en vereda cercana a Barichara con familias campesinas: producción de café orgánico, prácticas comunitarias y vida cotidiana rural con énfasis en manejo del agua y sostenibilidad."
+  },
+  steffenLina: {
+    nombre: "San Agustín (Huila)",
+    anfitrion: "Steffen y Lina",
+    descripcion: "Centro educativo y fundación que trabaja agroecología, conservación de semillas y educación local. Talleres prácticos, alimentación mayoritariamente orgánica y hostal bioconstruido cercano al parque arqueológico."
+  },
+  camiloJuliana: {
+    nombre: "Alto Putumayo (Putumayo)",
+    anfitrion: "Camilo y Juliana",
+    descripcion: "Jardín Botánico y reserva natural donde se combinan conservación, medicina tradicional, actividades de buen vivir (yoga, meditación) y educación ambiental en un contexto amazónico."
+  },
+  federicoTatiana: {
+    nombre: "Minca — Sierra Nevada (Magdalena)",
+    anfitrion: "Federico y Tatiana",
+    descripcion: "Hostal y reserva en Minca con enfoque en permacultura, bioconstrucción y observación de aves. Actividades prácticas, caminatas a ríos y conexión con comunidades indígenas vecinas."
+  },
+  margaritaEver: {
+    nombre: "Isla Grande, Archipiélago del Rosario (Bolívar)",
+    anfitrion: "Margarita y Ever",
+    descripcion: "Comunidad isleña dedicada a la conservación marina y cultural. Programas de educación ambiental, manejo de manglares, pesca sostenible y experiencias comunitarias en la playa."
+  },
+  atiDwineck: {
+    nombre: "Sierra Nevada de Santa Marta (Magdalena)",
+    anfitrion: "Ati y Dwineck",
+    descripcion: "Inmersión con la comunidad arhuaca: vida comunitaria, siembra y cosecha, rituales y prácticas tradicionales. Alojamiento en cabañas o hamacas y comidas elaboradas en cocina de leña."
+  },
+  darienLiumara: {
+    nombre: "Cuenca del Río Arenal (Antioquia)",
+    anfitrion: "Donde Darien y Liumara",
+    descripcion: "Proyecto comunitario de reforestación y vida en comunidad en Antioquia. Inmersión en técnicas permaculturales, caminatas sensoriales, rituales ancestrales opcionales y participación en labores de restauración del territorio."
+  }
+};
+
+/* Preguntas (ya alineadas con las experiencias) */
+const preguntas = [
+  { pregunta: "Cuando imaginas tu viaje ideal, ¿qué ambiente te atrae más?", opciones: [
+      { texto: "Cafetales y vida en finca", destino: "hernando" },
+      { texto: "Playas y vida isleña", destino: "margaritaEver" },
+      { texto: "Selva amazónica y ríos", destino: "camiloJuliana" },
+      { texto: "Montaña sagrada y comunidad indígena", destino: "atiDwineck" }
+    ]
+  },
+  { pregunta: "¿Qué te gustaría aprender directamente con un anfitrión local?", opciones: [
+      { texto: "Técnicas de cultivo y cuidado de la tierra", destino: "darienLiumara" },
+      { texto: "Procesos del café y vida de finca", destino: "hernando" },
+      { texto: "Conservación marina y vida en isla", destino: "margaritaEver" },
+      { texto: "Medicina tradicional y rituales", destino: "camiloJuliana" }
+    ]
+  },
+  { pregunta: "¿Cómo prefieres alojarte durante la experiencia?", opciones: [
+      { texto: "Cabaña rural junto a la familia anfitriona", destino: "hernando" },
+      { texto: "Hostal bioconstruido y colectivo educativo", destino: "steffenLina" },
+      { texto: "Capullo o cabaña en la reserva natural", destino: "camiloJuliana" },
+      { texto: "Dormir en hamaca y cocinar a leña", destino: "atiDwineck" }
+    ]
+  },
+  { pregunta: "En un día típico del viaje, ¿qué actividad te ilusiona más?", opciones: [
+      { texto: "Participar en talleres de bioconstrucción o permacultura", destino: "federicoTatiana" },
+      { texto: "Ir a sembrar árboles o trabajar en reforestación", destino: "darienLiumara" },
+      { texto: "Navegar o aprender sobre manglares y corales", destino: "margaritaEver" },
+      { texto: "Recorrer senderos entre cafetales y preparar café", destino: "hernando" }
+    ]
+  },
+  { pregunta: "¿Qué sonido te gustaría escuchar al despedir el día?", opciones: [
+      { texto: "El murmullo de un río en la selva", destino: "camiloJuliana" },
+      { texto: "El canto de aves en la Sierra Nevada", destino: "federicoTatiana" },
+      { texto: "El fuego de la cocina y conversaciones en comunidad", destino: "atiDwineck" },
+      { texto: "El silencio de la montaña y la puesta de sol en Barichara", destino: "mauricio" }
+    ]
+  },
+  { pregunta: "¿Qué recuerdo te gustaría traer de vuelta?", opciones: [
+      { texto: "Una historia de vida campesina y práctica", destino: "mauricio" },
+      { texto: "Un aprendizaje sobre plantas y semillas", destino: "steffenLina" },
+      { texto: "La experiencia de colaborar en reforestación", destino: "darienLiumara" },
+      { texto: "Un momento junto al mar y la comunidad isleña", destino: "margaritaEver" }
+    ]
+  },
+  { pregunta: "Si tu viaje tuviera un propósito personal, ¿cuál sería?", opciones: [
+      { texto: "Reconectar y encontrar calma interior", destino: "steffenLina" },
+      { texto: "Aprender prácticas sostenibles para aplicar en casa", destino: "federicoTatiana" },
+      { texto: "Contribuir activamente a la conservación", destino: "darienLiumara" },
+      { texto: "Vivir la autenticidad de una comunidad local", destino: "mauricio" }
+    ]
+  },
+  { pregunta: "¿Qué tipo de alimento te gustaría probar preparado por la familia anfitriona?", opciones: [
+      { texto: "Platos caseros con productos de la finca", destino: "hernando" },
+      { texto: "Comida isleña: pescado, arroz de coco y manglares", destino: "margaritaEver" },
+      { texto: "Alimentos y recetas ancestrales amazónicas", destino: "camiloJuliana" },
+      { texto: "Comidas tradicionales en comunidad con ingredientes locales", destino: "darienLiumara" }
+    ]
+  },
+  { pregunta: "¿Qué ritmo de viaje prefieres?", opciones: [
+      { texto: "Pausado, contemplativo y de aprendizaje", destino: "steffenLina" },
+      { texto: "Activo: caminar, plantar y participar", destino: "darienLiumara" },
+      { texto: "Experiencial: rituales, medicina tradicional y talleres", destino: "camiloJuliana" },
+      { texto: "Relajado pero cultural: playas, comunidad y charlas", destino: "margaritaEver" }
+    ]
+  },
+  { pregunta: "¿Qué valor humano te gustaría experimentar más durante el viaje?", opciones: [
+      { texto: "Comunidad y trabajo colectivo", destino: "mauricio" },
+      { texto: "Respeto por saberes ancestrales", destino: "atiDwineck" },
+      { texto: "Cuidado y regeneración del territorio", destino: "darienLiumara" },
+      { texto: "Hospitalidad familiar y sencillez", destino: "hernando" }
+    ]
+  },
+  { pregunta: "¿Cuál de estas imágenes te mueve más a viajar?", opciones: [
+      { texto: "Un sendero entre cafetales al amanecer", destino: "hernando" },
+      { texto: "Una playa con manglares y gente local", destino: "margaritaEver" },
+      { texto: "Un grupo sembrando árboles en la montaña", destino: "darienLiumara" },
+      { texto: "Un taller de permacultura en la montaña", destino: "federicoTatiana" }
+    ]
+  },
+  { pregunta: "Si fueras voluntario por unos días, ¿qué te gustaría hacer?", opciones: [
+      { texto: "Apoyar en la cosecha y labores de finca", destino: "hernando" },
+      { texto: "Participar en un proyecto de reforestación", destino: "darienLiumara" },
+      { texto: "Colaborar en huertas y talleres agroecológicos", destino: "steffenLina" },
+      { texto: "Ayudar en actividades comunitarias en Barichara", destino: "mauricio" }
+    ]
+  },
+  { pregunta: "¿Qué experiencia cultural te interesa vivir?", opciones: [
+      { texto: "Conocer prácticas y ritos de la Amazonía/Putumayo", destino: "camiloJuliana" },
+      { texto: "Escuchar historias y saberes de la Sierra Nevada", destino: "atiDwineck" },
+      { texto: "Vivir la vida isleña y aprender sobre conservación marina", destino: "margaritaEver" },
+      { texto: "Descubrir la vida rural santandereana en comunidad", destino: "mauricio" }
+    ]
+  },
+  { pregunta: "¿Qué te gustaría que cambiara en tu día a día tras volver del viaje?", opciones: [
+      { texto: "Adoptar prácticas de cuidado del entorno", destino: "darienLiumara" },
+      { texto: "Tener una relación más cercana con la comida y su origen", destino: "hernando" },
+      { texto: "Incorporar prácticas sencillas de bienestar (yoga, meditación)", destino: "camiloJuliana" },
+      { texto: "Valorar más la vida comunitaria y el compartir", destino: "mauricio" }
+    ]
+  },
+  { pregunta: "¿Qué te motiva más a reservar una experiencia de inmersión?", opciones: [
+      { texto: "Contribuir a proyectos sociales y ambientales", destino: "darienLiumara" },
+      { texto: "Aprender técnicas prácticas (bioconstrucción, permacultura)", destino: "federicoTatiana" },
+      { texto: "Vivir prácticas y saberes ancestrales en primera persona", destino: "atiDwineck" },
+      { texto: "Compartir la cotidianeidad de una familia anfitriona", destino: "hernando" }
+    ]
+  }
+];
+
+/* Puntos por destino */
+let puntos = {};
+for (const k in destinos) puntos[k] = 0;
+
+/* Para desempate determinista: guardamos el orden de selección del usuario. */
+let trackSelections = [];
+
+/* Generar preguntas en DOM */
+function generarPreguntas() {
+  const form = document.getElementById('testForm');
+  preguntas.forEach((p, i) => {
+    const section = document.createElement('section');
+    section.className = 'pregunta';
+    section.innerHTML = `
+      <h3>Pregunta ${i+1} de ${preguntas.length}</h3>
+      <p class="pregunta-texto">${escapeHtml(p.pregunta)}</p>
+      <div class="opciones" role="radiogroup" aria-label="Opciones pregunta ${i+1}">
+        ${p.opciones.map((opt, oi) => `
+          <div class="opcion">
+            <input type="radio" id="p${i}_${oi}" name="pregunta${i}" value="${opt.destino}" required>
+            <label for="p${i}_${oi}">${escapeHtml(opt.texto)}</label>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    form.appendChild(section);
+
+    // Registrar selección en trackSelections cuando el usuario elige o cambia respuesta
+    section.addEventListener('change', () => {
+      const chosen = form.querySelector(`input[name="pregunta${i}"]:checked`);
+      trackSelections[i] = chosen ? chosen.value : undefined;
+    });
+  });
+
+  const submit = document.createElement('button');
+  submit.type = 'submit';
+  submit.className = 'btn-submit';
+  submit.textContent = 'Descubrir mi destino';
+  form.appendChild(submit);
+}
+
+/* Escape para seguridad */
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]);
+}
+
+/* Calcular resultados: conteo de votos por destino */
+function calcularResultados(e) {
+  e.preventDefault();
+  const total = preguntas.length;
+  const respondidas = document.querySelectorAll('input[type="radio"]:checked').length;
+  if (respondidas < total) {
+    alert('Por favor, responde todas las preguntas antes de continuar.');
+    return;
+  }
+
+  // Reiniciar conteo
+  for (const k in puntos) puntos[k] = 0;
+
+  // Asegurar trackSelections actualizado (por si usuario no cambió alguna sección)
+  for (let i = 0; i < preguntas.length; i++) {
+    const sel = document.querySelector(`input[name="pregunta${i}"]:checked`);
+    trackSelections[i] = sel ? sel.value : undefined;
+  }
+
+  // Contar votos: cada vez que un destino aparece en las respuestas suma 1
+  for (let i = 0; i < trackSelections.length; i++) {
+    const dest = trackSelections[i];
+    if (dest) puntos[dest] = (puntos[dest] || 0) + 1;
+  }
+
+  // Encontrar el(los) destino(s) con más votos
+  const maxP = Math.max(...Object.values(puntos));
+  const empatados = Object.entries(puntos).filter(([_, v]) => v === maxP).map(([k,_]) => k);
+
+  let ganador;
+  if (empatados.length === 1) {
+    ganador = empatados[0];
+  } else {
+    // Desempate determinista: elegir el destino empatado que fue seleccionado más recientemente
+    for (let i = trackSelections.length - 1; i >= 0; i--) {
+      const sel = trackSelections[i];
+      if (!sel) continue;
+      if (empatados.includes(sel)) {
+        ganador = sel;
+        break;
+      }
+    }
+    // Respaldo
+    if (!ganador) ganador = empatados[0];
+  }
+
+  mostrarResultadosUnico(ganador, puntos);
+}
+
+/* Mostrar resultado único y desglose de conteo */
+function mostrarResultadosUnico(ganadorKey, puntosObj) {
+  const info = destinos[ganadorKey];
+  const resultContent = document.getElementById('resultContent');
+  const testForm = document.getElementById('testForm');
+  const resultCard = document.getElementById('resultCard');
+
+  // Construir pequeño desglose de votos para transparencia (opcional)
+  const desglose = Object.entries(puntosObj)
+    .sort((a,b) => b[1] - a[1])
+    .map(([k, v]) => `<li>${escapeHtml(destinos[k].nombre)}: ${v} voto(s)</li>`)
+    .join('');
+
+  const html = `
+    <div class="destino-ganador">
+      <h3>${escapeHtml(info.nombre)}</h3>
+      <p class="anfitrion"><strong>Anfitrión:</strong> ${escapeHtml(info.anfitrion)}</p>
+      <p class="descripcion">${escapeHtml(info.descripcion)}</p>
+    </div>
+    <details style="margin-top:12px;">
+      <summary>Ver desglose de votos</summary>
+      <ul>${desglose}</ul>
+      <p style="font-size:0.9rem;color:#555;margin-top:8px;">
+        En caso de empate, se prioriza la respuesta más reciente del test.
+      </p>
+    </details>
+  `;
+
+  resultContent.innerHTML = html;
+  testForm.classList.add('hidden');
+  resultCard.classList.remove('hidden');
+  resultCard.scrollIntoView({ behavior: 'smooth' });
+}
+
+/* Reiniciar test */
+function reiniciarTest() {
+  const form = document.getElementById('testForm');
+  const resultCard = document.getElementById('resultCard');
+  form.reset();
+  for (const k in puntos) puntos[k] = 0;
+  trackSelections = [];
+  form.classList.remove('hidden');
+  resultCard.classList.add('hidden');
+  document.querySelector('.test-header').scrollIntoView({ behavior: 'smooth' });
+}
+
+/* Inicializar */
+document.addEventListener('DOMContentLoaded', () => {
+  generarPreguntas();
+  document.getElementById('testForm').addEventListener('submit', calcularResultados);
+  document.getElementById('retakeTest').addEventListener('click', reiniciarTest);
+});
+</script>
+</body>
+</html>

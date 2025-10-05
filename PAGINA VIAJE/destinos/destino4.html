@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donde Hernando y su familia — Filandia, Quindío</title>
+    <link rel="stylesheet" href="styledestinos.css">
+</head>
+<body>
+    <div class="destino-page">
+        <div class="img-wrap" style="background-image: url('../IMAGEN/destino1-4.png');">
+        </div>
+        <div class="destino-content">
+            <h1>Donde Hernando y su familia — Filandia, Quindío</h1>
+
+            <p>Entre las suaves colinas del Quindío, donde el verde se mezcla con el aroma del café recién tostado, se encuentra la finca de Hernando y su familia. Aquí, cada rincón respira historia y trabajo, cada conversación se acompaña de una taza humeante y cada sonrisa tiene el calor de lo cotidiano. No hay nada sofisticado ni artificial: lo que ofrecen es autenticidad pura, una vida que fluye al ritmo del campo y del tiempo sin apuro.</p>
+
+            <p>Hernando y su familia han hecho de su hogar un lugar donde la experiencia del café va más allá del sabor. Es aprender a ver el proceso completo —la semilla, la planta, el grano, la molienda— y reconocer el esfuerzo que se esconde detrás de cada sorbo. Más que una finca, es un espacio de memoria y tradición que enseña el valor de lo simple y la dignidad del trabajo en comunidad.</p>
+
+            <p>Quien los visita no solo conoce el proceso del café: se deja abrazar por la vida rural, por el sonido de los pájaros al amanecer y por el fuego que arde en la cocina al caer la tarde. En este pedazo de tierra cafetera, el viaje se vuelve una lección silenciosa sobre gratitud y pertenencia.</p>
+
+            <a href="../index.html" class="btn-volver">Volver al inicio</a>
+        </div>
+    </div>
+</body>
+</html>
+
+    </div>
+    <script>
+    const track = document.querySelector('.carousel-track');
+    const cards = track.children;
+    const cardWidth = cards[0].offsetWidth;
+    const prevBtn = document.querySelector('.carousel-button.prev');
+    const nextBtn = document.querySelector('.carousel-button.next');
+    
+    let currentIndex = 0;
+    
+    function updateCarousel() {
+        const offset = -currentIndex * (cardWidth + 24); // 24px is the gap
+        track.style.transform = `translateX(${offset}px)`;
+    }
+    
+    prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        }
+    });
+    
+    nextBtn.addEventListener('click', () => {
+        if (currentIndex < cards.length - 3) { // Show 3 cards at once
+            currentIndex++;
+            updateCarousel();
+        }
+    });
+</script>
+</body>
+</html>
